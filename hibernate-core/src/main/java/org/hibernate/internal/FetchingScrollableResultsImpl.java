@@ -257,7 +257,8 @@ public class FetchingScrollableResultsImpl extends AbstractScrollableResults {
 
 	private boolean isResultSetEmpty() {
 		try {
-			return currentPosition == 0 && !getResultSet().isBeforeFirst() && !getResultSet().isAfterLast();
+			return currentPosition == 0 && (!getResultSet().isBeforeFirst() && !getResultSet().isAfterLast()
+                    || getResultSet().isBeforeFirst() && getResultSet().isAfterLast());
 		}
 		catch (SQLException e) {
 			throw getSession().getFactory().getSQLExceptionHelper().convert(
